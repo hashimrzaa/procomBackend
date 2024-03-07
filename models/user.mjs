@@ -64,12 +64,12 @@ userSchema.statics.login = async function (userName, password) {
   if (!user) {
     throw Error("Incorrect user name");
   }
-
+console.log(this.password);
   //compairing password
 
   const match = await bcrypt.compare(password, user.password);
   if (!match) {
-    return Error("Incorrect password");
+    throw Error("Incorrect password");
   }
   return user;
 };
