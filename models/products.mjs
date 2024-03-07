@@ -29,6 +29,11 @@ const ProductsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  paymentStatus: {
+    type: String,
+    required: true,
+  },
+  paymentStatus
 });
 
 const Products = mongoose.model("products", ProductsSchema);
