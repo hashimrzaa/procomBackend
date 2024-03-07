@@ -33,7 +33,14 @@ const userSchema = new Schema({
 
 //signup method
 
-userSchema.statics.signup = async function (userName, email, password,phonenumber,accountnumber,type) {
+userSchema.statics.signup = async function (
+  userName,
+  email,
+  password,
+  phonenumber,
+  accountnumber,
+  type
+) {
   const exists = await this.findOne({ userName });
   if (exists) {
     throw Error("User Name already in use.");
@@ -65,12 +72,14 @@ userSchema.statics.login = async function (userName, password) {
     throw Error("Incorrect user name");
   }
   //compairing password
-
   const match = await bcrypt.compare(password, user.password);
+  console.log(match);
   if (!match) {
     throw Error("Incorrect password");
+    // console.log("errror");
+  } else {
+    return user;
   }
-  return user;
 };
 
 const User = mongoose.model("Users", userSchema);
