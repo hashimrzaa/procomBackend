@@ -8,6 +8,18 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  type: {
+    type: String,
+    required: true,
+  },
+  accountnumber: {
+    type: Number,
+    required: true,
+  },
+  phonenumber: {
+    type: Number,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -21,7 +33,7 @@ const userSchema = new Schema({
 
 //signup method
 
-userSchema.statics.signup = async function (userName, email, password) {
+userSchema.statics.signup = async function (userName, email, password,phonenumber,accountnumber,type) {
   const exists = await this.findOne({ userName });
   if (exists) {
     throw Error("User Name already in use.");
@@ -31,6 +43,9 @@ userSchema.statics.signup = async function (userName, email, password) {
 
   const user = await this.create({
     userName,
+    type,
+    phonenumber,
+    accountnumber,
     email,
     password: hash,
   });
@@ -47,7 +62,7 @@ userSchema.statics.login = async function (userName, password) {
   //finding user in database
   const user = await this.findOne({ userName });
   if (!user) {
-    throw Error("Incorrect Email");
+    throw Error("Incorrect user name");
   }
 
   //compairing password
@@ -59,6 +74,6 @@ userSchema.statics.login = async function (userName, password) {
   return user;
 };
 
-const Users = mongoose.model("Users", userSchema);
+const User = mongoose.model("Users", userSchema);
 
-export default Users;
+export default User;

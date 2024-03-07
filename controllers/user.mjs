@@ -1,6 +1,9 @@
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import User from "../models/user.mjs";
+import dotenv from "dotenv";
+dotenv.config();
+
 //creating jwt token
 
 const createToken = (user) => {
@@ -10,9 +13,16 @@ const createToken = (user) => {
 // post request of add user
 
 const addUser = async (req, res) => {
-  const { userName, email, password } = req.body;
+  const { userName, email, password, accountnumber, phonenumber,type } = req.body;
   try {
-    const user = await User.signup(userName, email, password);
+    const user = await User.signup(
+      userName,
+      email,
+      password,
+      phonenumber,
+      accountnumber,
+      type
+    );
 
     res.status(200).json(user);
   } catch (error) {
@@ -79,7 +89,7 @@ const updateUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const { userName, password } = req.body;
   let arr = [];
-  if (!userName || userName == " ") {
+  if (!userName || userName == "") {
     arr.push("Required: User Name");
   }
   if (!password || password.length < 6) {
@@ -94,7 +104,7 @@ const loginUser = async (req, res) => {
     res.status(400).json(arr);
   } else {
     try {
-      const user = await User.login(userName, password);
+      const user = User.login(userName, password);
 
       //create jsonwebtoken
       const token = createToken(user);
