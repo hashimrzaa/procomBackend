@@ -107,7 +107,8 @@ const loginUser = async (req, res) => {
     try {
       const user = await User.login(userName, password);
 
-      //create jsonwebtoken   const token = createToken(user);
+      //create jsonwebtoken
+      const token = createToken(user);
       res.status(200).json({ user: user, token });
     } catch (error) {
       res.status(400).json(error.message);
