@@ -13,7 +13,8 @@ const createToken = (user) => {
 // post request of add user
 
 const addUser = async (req, res) => {
-  const { userName, email, password, accountnumber, phonenumber,type } = req.body;
+  const { userName, email, password, accountnumber, phonenumber, type } =
+    req.body;
   try {
     const user = await User.signup(
       userName,
@@ -104,10 +105,9 @@ const loginUser = async (req, res) => {
     res.status(400).json(arr);
   } else {
     try {
-      const user = User.login(userName, password);
+      const user = await User.login(userName, password);
 
-      //create jsonwebtoken
-      const token = createToken(user);
+      //create jsonwebtoken   const token = createToken(user);
       res.status(200).json({ user: user, token });
     } catch (error) {
       res.status(400).json(error.message);
