@@ -7,17 +7,14 @@ const ProductsSchema = new mongoose.Schema({
   customerAccountNo: {
     type: Number,
     required: true,
-   
   },
   email: {
     type: String,
     required: true,
-  
   },
   merchantAccountNumber: {
     type: Number,
     required: true,
-   
   },
 
   paymentPurpose: {
@@ -31,7 +28,6 @@ const ProductsSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    
   },
   paymentStatus: {
     type: String,
